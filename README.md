@@ -22,7 +22,7 @@ install it with the command-line tool [cv](https://github.com/civicrm/cv).
 
 ```bash
 cd <extension-dir>
-cv dl nl.pum.casestab@https://github.com/FIXME/nl.pum.casestab/archive/master.zip
+cv dl nl.pum.casestab@https://github.com/PUMNL/nl.pum.casestab/archive/master.zip
 ```
 
 ## Installation (CLI, Git)
@@ -31,7 +31,7 @@ Sysadmins and developers may clone the [Git](https://en.wikipedia.org/wiki/Git) 
 install it with the command-line tool [cv](https://github.com/civicrm/cv).
 
 ```bash
-git clone https://github.com/FIXME/nl.pum.casestab.git
+git clone https://github.com/PUMNL/nl.pum.casestab.git
 cv en casestab
 ```
 
