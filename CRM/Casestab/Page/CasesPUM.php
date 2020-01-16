@@ -139,6 +139,15 @@ class CRM_Casestab_Page_CasesPUM extends CRM_Core_Page {
           'cxt' => 'case',
         )
       );
+
+      //Remove action for issue #4389
+      if(is_array($actions['moreActions'])){
+        foreach($actions['moreActions'] as $key => $value){
+          if($actions['moreActions'][$key]['name'] == 'Assign to Another Client'){
+            unset($actions['moreActions'][$key]);
+          }
+        }
+      }
       $displayRow['moreActions'] = CRM_Core_Action::formLink($actions['moreActions'],
         $mask,
         array(
