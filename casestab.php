@@ -198,8 +198,7 @@ function casestab_civicrm_tabs(&$tabs, $contactID) {
   foreach($tabs as $key => $tab) {
     if($tab['id'] == 'case'){
       unset($tabs[$key]);
-    }
-    if (is_null($tabs[$key])) {
+    } else if (is_null($tabs[$key])) {
       unset($tabs[$key]);
     }
   }

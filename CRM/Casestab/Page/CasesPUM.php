@@ -201,7 +201,8 @@ class CRM_Casestab_Page_CasesPUM extends CRM_Core_Page {
           'rowCount' => 50,
           'buttonBottom' => 'PagerBottomButton',
           'buttonTop' => 'PagerTopButton',
-          'pageID' => $this->get(CRM_Utils_Pager::PAGE_ID)
+          'pageID' => $this->get(CRM_Utils_Pager::PAGE_ID),
+          'status' => ''
         );
 
         $this->_pager = new CRM_Utils_Pager($params);
