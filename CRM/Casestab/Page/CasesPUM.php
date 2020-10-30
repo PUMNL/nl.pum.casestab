@@ -97,8 +97,12 @@ class CRM_Casestab_Page_CasesPUM extends CRM_Core_Page {
     );
     $result = civicrm_api('Relationship', 'get', $params);
 
-    foreach($result['values'] as $key => $value){
-      $contact = civicrm_api('Contact', 'get', array('version'=>3,'sequential'=>1,'id'=>$value['contact_id_b']));
+    foreach($result['values'] as $key => $value) {
+      if($this->contactIsCountry($value['contact_id_a']) == TRUE) {
+        $contact = civicrm_api('Contact', 'get', array('version'=>3,'sequential'=>1,'id'=>$value['contact_id_b']));
+      } else {
+        $contact = civicrm_api('Contact', 'get', array('version'=>3,'sequential'=>1,'id'=>$value['contact_id_b']));
+      }
     }
 
     $displayRow = array();
@@ -108,7 +112,7 @@ class CRM_Casestab_Page_CasesPUM extends CRM_Core_Page {
     $displayRow['subject'] = $dao->subject;
     $displayRow['case_status'] = $dao->case_status;
     $displayRow['case_type'] = $dao->case_type;
-    $displayRow['case_manager'] = $contact['values'][0]['display_name'];
+    $displayRow['case_manager'] = isset($contact['values'][0]['display_name'])?$contact['values'][0]['display_name']:'';
     $displayRow['start_date'] = $dao->start_date;
     $displayRow['end_date'] = $dao->end_date;
     $displayRow['is_deleted'] = $dao->is_deleted;
@@ -210,6 +214,26 @@ class CRM_Casestab_Page_CasesPUM extends CRM_Core_Page {
       } catch (Exception $ex) {
 
       }
+    }
+  }
+
+  public static function contactIsCountry($contactId) {
+    if (empty($contactId)) {
+      return FALSE;
+    }
+    try {
+      $contactData = civicrm_api3('Contact', 'Getsingle', array('contact_id' => $contactId));
+      if (isset($contactData['contact_sub_type']) && !empty($contactData['contact_sub_type'])) {
+        foreach ($contactData['contact_sub_type'] as $contactSubType) {
+          if ($contactSubType == 'Country') {
+            return TRUE;
+          }
+        }
+      } else {
+        return FALSE;
+      }
+    } catch (CiviCRM_API3_Exception $ex) {
+      return FALSE;
     }
   }
 }
